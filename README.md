@@ -111,6 +111,18 @@ The app comes with placeholder audio file paths ready for your custom sounds:
 
 The app gracefully handles missing audio files - it will work perfectly without sounds!
 
+### Deploying to GitHub Pages
+
+**Important:** If sounds work locally but not on GitHub Pages, you need to commit the audio files:
+
+```bash
+git add sounds/*.mp3
+git commit -m "Add sound effect files"
+git push origin main
+```
+
+For large audio files, consider using **Git LFS** or keeping files under 100KB each. See `sounds/README.md` for detailed deployment instructions.
+
 ## 📱 Responsive
 
 - Desktop: Full experience with larger cat and all features

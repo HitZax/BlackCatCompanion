@@ -41,9 +41,15 @@
     try {
       if (sounds[soundKey]) {
         sounds[soundKey].currentTime = 0;
-        sounds[soundKey].play().catch(() => {
-          // Silently fail if audio doesn't exist or can't play
-        });
+        // Preload is important for faster playback
+        sounds[soundKey].preload = "auto";
+        const playPromise = sounds[soundKey].play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Silently fail if audio doesn't exist or can't play
+            // This is normal - audio files may not be committed to GitHub
+          });
+        }
       }
     } catch (error) {
       // Audio might not be available
