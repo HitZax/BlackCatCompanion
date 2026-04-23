@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stress Relief | Black Cat</title>
+    <meta
+      name="description"
+      content="Black cat stress relief app with focus mode and motivational prompts."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app" aria-label="Stress relief black cat app">
+      <header class="app-header">
+        <h1>Black Cat Companion</h1>
+        <p class="tagline">Your stress-relief buddy</p>
+      </header>
+
+      <section class="stage" id="stage" aria-label="Black cat stage">
+        <div
+          class="night-tooltip"
+          id="nightTooltip"
+          role="status"
+          aria-live="polite"
+        >
+          Still working? The cat says it is time to log off.
+        </div>
+        <div class="focus-timer" id="focusTimer" aria-live="polite">
+          <span class="timer-label">Focus timer</span>
+          <span class="timer-time" id="timerTime">25:00</span>
+        </div>
+        <div
+          class="cat"
+          id="cat"
+          role="img"
+          aria-label="Minimalist black cat with glowing eyes"
+        >
+          <div class="cat-body" aria-hidden="true"></div>
+          <div class="cat-tail" aria-hidden="true"></div>
+          <div
+            class="eyes"
+            id="eyes"
+            aria-label="Cat eyes"
+            title="Press and hold for focus mode"
+          >
+            <div class="eye"></div>
+            <div class="eye"></div>
+          </div>
+          <div class="cat-face" aria-hidden="true">
+            <span class="nose"></span>
+            <span class="smile"></span>
+            <span class="cheek cheek-left"></span>
+            <span class="cheek cheek-right"></span>
+            <span class="whisker whisker-left whisker-top"></span>
+            <span class="whisker whisker-left whisker-bottom"></span>
+            <span class="whisker whisker-right whisker-top"></span>
+            <span class="whisker whisker-right whisker-bottom"></span>
+            <span class="mouth-left"></span>
+            <span class="mouth-right"></span>
+            <span class="chin-dot"></span>
+          </div>
+          <div class="paws" aria-hidden="true">
+            <span class="paw paw-left"></span>
+            <span class="paw paw-right"></span>
+            <span class="toe paw-left-1"></span>
+            <span class="toe paw-left-2"></span>
+            <span class="toe paw-right-1"></span>
+            <span class="toe paw-right-2"></span>
+          </div>
+          <div class="love-bursts" id="loveBursts" aria-hidden="true">
+            <span class="heart heart-a"></span>
+            <span class="heart heart-b"></span>
+            <span class="heart heart-c"></span>
+          </div>
+          <div class="eye-shine eye-shine-left"></div>
+          <div class="eye-shine eye-shine-right"></div>
+        </div>
+      </section>
+
+      <section class="control-panel" aria-label="Interaction area">
+        <section class="controls" aria-label="Interaction controls">
+          <div class="btn-row">
+            <button
+              type="button"
+              class="btn-pet"
+              id="petBtn"
+              aria-label="Pet the cat"
+            >
+              Pet
+            </button>
+            <button
+              type="button"
+              class="btn-pat"
+              id="patBtn"
+              aria-label="Pat the cat"
+            >
+              Pat
+            </button>
+          </div>
+        </section>
+
+        <section class="purge" aria-label="Task purge">
+          <div class="task-row">
+            <input
+              id="taskInput"
+              type="text"
+              maxlength="140"
+              placeholder="Release a task that's stressing you out..."
+              aria-label="Task to release"
+            />
+            <button type="button" id="releaseBtn" aria-label="Release task">
+              Release
+            </button>
+          </div>
+          <div class="purge-visual" id="purgeVisual" aria-live="polite">
+            <span class="purge-text" id="purgeText"></span>
+            <div class="shred-layer" id="shredLayer"></div>
+          </div>
+          <p class="reward" id="rewardMessage" aria-live="polite"></p>
+        </section>
+
+        <section class="motivator" aria-label="Motivation helper">
+          <div class="motivator-box">
+            <p class="motivator-text" id="motivatorText"></p>
+            <div class="motivator-actions">
+              <label class="sr-only" for="motivatorMode"
+                >Motivator source</label
+              >
+              <select id="motivatorMode" aria-label="Motivator source">
+                <option value="hybrid">Hybrid</option>
+                <option value="curated">Curated</option>
+                <option value="api">Live API</option>
+              </select>
+              <button
+                type="button"
+                id="motivatorBtn"
+                aria-label="Load motivator"
+              >
+                New motivator
+              </button>
+            </div>
+          </div>
+          <p class="hint">Breathe out and let it go.</p>
+        </section>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
