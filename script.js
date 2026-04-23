@@ -22,6 +22,34 @@
   let focusSeconds = 25 * 60;
   let holdTimer = null;
 
+  // Sound effects - placeholder paths, replace with your own audio files
+  const sounds = {
+    pet: new Audio("sounds/pet-purr.mp3"),
+    pat: new Audio("sounds/pat-bounce.mp3"),
+    release: new Audio("sounds/release-shred.mp3"),
+    motivator: new Audio("sounds/motivator-chime.mp3"),
+    focusStart: new Audio("sounds/focus-start.mp3"),
+    reward: new Audio("sounds/reward-celebration.mp3"),
+  };
+
+  // Set volume for all sounds
+  Object.values(sounds).forEach((sound) => {
+    sound.volume = 0.6;
+  });
+
+  function playSound(soundKey) {
+    try {
+      if (sounds[soundKey]) {
+        sounds[soundKey].currentTime = 0;
+        sounds[soundKey].play().catch(() => {
+          // Silently fail if audio doesn't exist or can't play
+        });
+      }
+    } catch (error) {
+      // Audio might not be available
+    }
+  }
+
   function triggerClass(el, className, durationMs) {
     el.classList.remove(className);
     void el.offsetWidth;
@@ -61,6 +89,7 @@
     happyPulse(640);
     delight(980);
     flashStage();
+    playSound("pet");
   }
 
   function pat() {
@@ -68,6 +97,7 @@
     happyPulse(640);
     delight(820);
     flashStage();
+    playSound("pat");
   }
 
   function invalidFeedback() {
@@ -126,11 +156,13 @@
     purgeText.textContent = text;
     makeShred(text);
     taskInput.value = "";
+    playSound("release");
 
     if (isRewardWord(text)) {
       triggerClass(eyes, "slow-blink", 1550);
       happyPulse(760);
       delight(980);
+      playSound("reward");
       setRewardMessage("Efficiency achieved. Rest now.");
     }
 
@@ -152,6 +184,7 @@
       return;
     }
 
+    playSound("focusStart");
     timerTime.textContent = formatTime(focusSeconds);
     document.body.classList.add("focus-mode");
     focusTimer.classList.add("show");
@@ -162,6 +195,7 @@
         focusInterval = null;
         focusSeconds = 25 * 60;
         timerTime.textContent = "Session done";
+        playSound("reward");
         setRewardMessage("Focus cycle complete. Recover strategically.");
         return;
       }
@@ -284,12 +318,14 @@
 
       happyPulse(620);
       delight(980);
+      playSound("motivator");
     } catch (error) {
       const mode = motivatorMode ? motivatorMode.value : "hybrid";
       motivatorText.textContent =
         mode === "curated" ? pickCuratedQuote() : randomFallbackMotivation();
       happyPulse(620);
       delight(980);
+      playSound("motivator");
     }
   }
 

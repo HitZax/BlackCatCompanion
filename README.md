@@ -2,6 +2,8 @@
 
 A minimalist, interactive stress-relief web app featuring a cute black cat with glowing yellow eyes. Perfect for professionals who need a moment of calm during their workday.
 
+**🌐 Live Web:** https://HitZax.github.io/BlackCatCompanion/
+
 ## ✨ Features
 
 ### 🐾 **Pet & Pat Interactions**
@@ -65,6 +67,7 @@ A minimalist, interactive stress-relief web app featuring a cute black cat with 
 - **HTML5** - Semantic markup
 - **CSS3** - Advanced animations, gradients, and responsive layouts
 - **Vanilla JavaScript** - No frameworks, lightning-fast performance
+- **Web Audio API** - Sound effects support
 - **GitHub Pages compatible** - Deploy it anywhere
 
 ## 🚀 How to Use
@@ -90,6 +93,23 @@ A minimalist, interactive stress-relief web app featuring a cute black cat with 
 2. Open `index.html` in your web browser
 3. No dependencies, no build process, no installation needed
 4. Works completely offline
+
+### Adding Sound Effects
+
+The app comes with placeholder audio file paths ready for your custom sounds:
+
+1. Navigate to the `sounds/` folder
+2. Replace the placeholder files with your own MP3 audio:
+   - `pet-purr.mp3` - Pet button sound
+   - `pat-bounce.mp3` - Pat button sound
+   - `release-shred.mp3` - Release button sound
+   - `reward-celebration.mp3` - Reward/celebration sound
+   - `focus-start.mp3` - Focus mode activation sound
+   - `motivator-chime.mp3` - Motivator/quote sound
+
+3. See `sounds/README.md` for detailed guidance on audio specifications
+
+The app gracefully handles missing audio files - it will work perfectly without sounds!
 
 ## 📱 Responsive
 
