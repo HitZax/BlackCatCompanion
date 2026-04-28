@@ -623,7 +623,7 @@ body.night-mode .eye::after {
 
 .btn-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 0.75rem;
 }
 
@@ -673,6 +673,14 @@ button:active {
 
 .btn-pat {
   background: linear-gradient(180deg, #1d1710, #13100b);
+}
+
+.btn-belly {
+  background: linear-gradient(180deg, #111b1d, #0b1012);
+}
+
+.btn-kiss {
+  background: linear-gradient(180deg, #17131b, #0d0b10);
 }
 
 .task-row {

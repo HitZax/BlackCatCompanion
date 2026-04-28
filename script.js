@@ -4,6 +4,8 @@
   const eyes = document.getElementById("eyes");
   const petBtn = document.getElementById("petBtn");
   const patBtn = document.getElementById("patBtn");
+  const bellyBtn = document.getElementById("bellyBtn");
+  const kissBtn = document.getElementById("kissBtn");
   const releaseBtn = document.getElementById("releaseBtn");
   const taskInput = document.getElementById("taskInput");
   const purgeText = document.getElementById("purgeText");
@@ -26,14 +28,25 @@
   const sounds = {
     pet: new Audio("sounds/pet-purr.mp3"),
     pat: new Audio("sounds/pat-bounce.mp3"),
+    bellyRub: new Audio("sounds/pet-long-purr.mp3"),
     release: new Audio("sounds/release-shred.mp3"),
     motivator: new Audio("sounds/motivator-chime.mp3"),
     focusStart: new Audio("sounds/focus-start.mp3"),
     reward: new Audio("sounds/reward-celebration.mp3"),
   };
 
+  const meowSounds = [
+    new Audio("sounds/pet-meow-1.mp3"),
+    new Audio("sounds/pet-meow-2.mp3"),
+    new Audio("sounds/pet-meow-3.mp3"),
+  ];
+
   // Set volume for all sounds
   Object.values(sounds).forEach((sound) => {
+    sound.volume = 0.6;
+  });
+
+  meowSounds.forEach((sound) => {
     sound.volume = 0.6;
   });
 
@@ -48,6 +61,24 @@
           playPromise.catch(() => {
             // Silently fail if audio doesn't exist or can't play
             // This is normal - audio files may not be committed to GitHub
+          });
+        }
+      }
+    } catch (error) {
+      // Audio might not be available
+    }
+  }
+
+  function playRandomMeow() {
+    try {
+      const meow = meowSounds[Math.floor(Math.random() * meowSounds.length)];
+      if (meow) {
+        meow.currentTime = 0;
+        meow.preload = "auto";
+        const playPromise = meow.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Silently fail if audio doesn't exist or can't play
           });
         }
       }
@@ -104,6 +135,22 @@
     delight(820);
     flashStage();
     playSound("pat");
+  }
+
+  function bellyRub() {
+    triggerClass(eyes, "purr", 1180);
+    happyPulse(760);
+    delight(1100);
+    flashStage();
+    playSound("bellyRub");
+  }
+
+  function kiss() {
+    triggerClass(eyes, "blink", 520);
+    happyPulse(620);
+    delight(900);
+    flashStage();
+    playRandomMeow();
   }
 
   function invalidFeedback() {
@@ -337,6 +384,8 @@
 
   petBtn.addEventListener("click", pet);
   patBtn.addEventListener("click", pat);
+  bellyBtn.addEventListener("click", bellyRub);
+  kissBtn.addEventListener("click", kiss);
   releaseBtn.addEventListener("click", releaseTask);
   motivatorBtn.addEventListener("click", loadMotivation);
 
