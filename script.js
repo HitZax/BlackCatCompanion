@@ -24,30 +24,80 @@
   let focusSeconds = 25 * 60;
   let holdTimer = null;
 
+  // Web Audio API context for purr amplification
+  let audioContext = null;
+  const purrGainNodes = [];
+
+  function getAudioContext() {
+    if (!audioContext) {
+      try {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      } catch (error) {
+        // AudioContext not available
+      }
+    }
+    return audioContext;
+  }
+
+  function createPurrWithGain(audioElement) {
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+
+      const source = ctx.createMediaElementAudioSource(audioElement);
+      const gainNode = ctx.createGain();
+      gainNode.gain.value = 2.0; // 200% volume
+
+      source.connect(gainNode);
+      gainNode.connect(ctx.destination);
+
+      return gainNode;
+    } catch (error) {
+      // If source already connected or context issues, silently fail
+    }
+  }
+
   // Sound effects - placeholder paths, replace with your own audio files
   const sounds = {
-    pet: new Audio("sounds/pet-purr.mp3"),
     pat: new Audio("sounds/pat-bounce.mp3"),
-    bellyRub: new Audio("sounds/pet-long-purr.mp3"),
     release: new Audio("sounds/release-shred.mp3"),
     motivator: new Audio("sounds/motivator-chime.mp3"),
     focusStart: new Audio("sounds/focus-start.mp3"),
     reward: new Audio("sounds/reward-celebration.mp3"),
   };
 
+  const petSound = new Audio("sounds/pet-kitten-meow.mp3");
+
+  const longPurrSounds = [
+    new Audio("sounds/pet-long-purr-1.mp3"),
+    new Audio("sounds/pet-long-purr-2.mp3"),
+    new Audio("sounds/pet-long-purr-3.mp3"),
+    new Audio("sounds/pet-long-purr-4.mp3"),
+    new Audio("sounds/pet-long-purr-5.mp3"),
+  ];
+
   const meowSounds = [
     new Audio("sounds/pet-meow-1.mp3"),
     new Audio("sounds/pet-meow-2.mp3"),
     new Audio("sounds/pet-meow-3.mp3"),
+    petSound,
   ];
 
   // Set volume for all sounds
   Object.values(sounds).forEach((sound) => {
-    sound.volume = 0.6;
+    sound.volume = 0.9;
   });
 
+  petSound.volume = 0.9;
+
   meowSounds.forEach((sound) => {
-    sound.volume = 0.6;
+    sound.volume = 0.9;
+  });
+
+  longPurrSounds.forEach((sound) => {
+    sound.volume = 1.0;
+    // Set up Web Audio API gain node for 200% amplification
+    createPurrWithGain(sound);
   });
 
   function playSound(soundKey) {
@@ -69,13 +119,13 @@
     }
   }
 
-  function playRandomMeow() {
+  function playRandomSound(soundList) {
     try {
-      const meow = meowSounds[Math.floor(Math.random() * meowSounds.length)];
-      if (meow) {
-        meow.currentTime = 0;
-        meow.preload = "auto";
-        const playPromise = meow.play();
+      const sound = soundList[Math.floor(Math.random() * soundList.length)];
+      if (sound) {
+        sound.currentTime = 0;
+        sound.preload = "auto";
+        const playPromise = sound.play();
         if (playPromise !== undefined) {
           playPromise.catch(() => {
             // Silently fail if audio doesn't exist or can't play
@@ -85,6 +135,14 @@
     } catch (error) {
       // Audio might not be available
     }
+  }
+
+  function playRandomMeow() {
+    playRandomSound(meowSounds);
+  }
+
+  function playRandomLongPurr() {
+    playRandomSound(longPurrSounds);
   }
 
   function triggerClass(el, className, durationMs) {
@@ -126,7 +184,14 @@
     happyPulse(640);
     delight(980);
     flashStage();
-    playSound("pet");
+    petSound.currentTime = 0;
+    petSound.preload = "auto";
+    const playPromise = petSound.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Silently fail if audio doesn't exist or can't play
+      });
+    }
   }
 
   function pat() {
@@ -142,7 +207,7 @@
     happyPulse(760);
     delight(1100);
     flashStage();
-    playSound("bellyRub");
+    playRandomLongPurr();
   }
 
   function kiss() {

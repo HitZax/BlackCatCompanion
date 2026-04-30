@@ -100,12 +100,13 @@ The app comes with placeholder audio file paths ready for your custom sounds:
 
 1. Navigate to the `sounds/` folder
 2. Replace the placeholder files with your own MP3 audio:
-   - `pet-purr.mp3` - Pet button sound
-   - `pat-bounce.mp3` - Pat button sound
-   - `release-shred.mp3` - Release button sound
-   - `reward-celebration.mp3` - Reward/celebration sound
-   - `focus-start.mp3` - Focus mode activation sound
-   - `motivator-chime.mp3` - Motivator/quote sound
+
+- `pet-kitten-meow.mp3` - Pet button sound
+- `pat-bounce.mp3` - Pat button sound
+- `release-shred.mp3` - Release button sound
+- `reward-celebration.mp3` - Reward/celebration sound
+- `focus-start.mp3` - Focus mode activation sound
+- `motivator-chime.mp3` - Motivator/quote sound
 
 3. See `sounds/README.md` for detailed guidance on audio specifications
 
